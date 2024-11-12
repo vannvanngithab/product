@@ -61,11 +61,12 @@ app.get("/api/members/:id",(req, res)=>{
 //POST - CREATE
 app.use(express.urlencoded({extended: false}))
 app.post("/api/members", (req, res)=>{
-    const fname = req.body.fname;
-    const lname = req.body.lname;
-    const email = req.body.email;
-    const gender = req.body.gender;
-    connection.query(`INSERT INTO userdata (first_name, last_name, email, gender) VALUES ('${fname}','${lname}', '${email}', '${gender}')`, (err, rows, fields) =>{
+    const id = req.body.id;
+    const itemname = req.body.itemname;
+    const unitPrice = req.body.unitPrice;
+    const quantity = req.body.quantity;
+    const supplier = req.body.supplier;
+    connection.query(`INSERT INTO userdata (ID, Item_Name, Unit_Price, Quantity, Supplier) VALUES ('${id}','${itemname}', '${unitPrice}', '${quantity}','${supplier}')`, (err, rows, fields) =>{
         if(err) throw err;
         res.json({msg: `Successfully inserted`});
     })
@@ -77,13 +78,13 @@ app.post("/api/members", (req, res)=>{
 //PUT - UPDATE
 app.use(express.urlencoded({ extended: false }));
 app.put("/api/members", (req, res) => {
-  const fname = req.body.fname;
-  const lname = req.body.lname;
-  const email = req.body.email;
-  const gender = req.body.gender;
-  const id = req.body.id;
+ const id = req.body.id;
+    const itemname = req.body.itemname;
+    const unitPrice = req.body.unitPrice;
+    const quantity = req.body.quantity;
+    const supplier = req.body.supplier;
   connection.query(
-    `UPDATE userdata SET first_name='${fname}', last_name='${lname}', email='${email}', gender='${gender}' WHERE id='${id}'`,
+    `UPDATE userdata SET ID='${id}', Item_Name='${itemname}', Unit_Price='${unitPrice}', Quantity='${quantity}' , Supplier = '${supplier}' WHERE id='${id}'`,
     (err, rows, fields) => {
       if (err) throw err;
       res.json({ msg: `Successfully updated!` });
